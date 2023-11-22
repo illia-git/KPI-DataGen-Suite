@@ -14,7 +14,7 @@ def main():
     kpi_data["Date"] = dates.strftime("%Y-%m-%d")
 
     data_frame = pd.DataFrame(kpi_data)
-    csv_file_path = 'sample_dashboard_data.csv'
+    csv_file_path = 'sample_dashboard_data_v3.csv'
     save_to_csv(data_frame, csv_file_path)
 
 if __name__ == "__main__":

@@ -10,11 +10,12 @@ class TestKpiGenerator(unittest.TestCase):
         expected_keys = [
             "Total Visits", "Unique Visitors", "Avg Session Duration", 
             "Bounce Rate", "Journeys Per Session", "Avg Time on Journey", 
-            "Most Visited Journey", "Conversion Rate", "Lead Conversion Rate", 
-            "Document Downloads", "Purchases", "Feedback Score", 
-            "Search Query Frequency", "Search Result CTR", "Social Shares", 
-            "Page Load Time", "Error Rates", "User Demographics", 
-            "Behavioral Segment"
+            "Most Visited Journey", "Journey Steps", "Time on Step",
+            "TDA Clicks", "RFO Clicks", "Conversion Rate", 
+            "Lead Conversion Rate", "Document Downloads", "Purchases", 
+            "Feedback Score", "Search Query Frequency", "Search Result CTR", 
+            "Social Shares", "Page Load Time", "Error Rates", 
+            "User Demographics", "Behavioral Segment"
         ]
 
         self.assertIsInstance(kpi_data, dict)

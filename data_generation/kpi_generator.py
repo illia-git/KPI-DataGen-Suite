@@ -1,33 +1,38 @@
-import numpy as np
 import random
+from data_generation.numeric_kpi_generator import generate_numeric_kpi
+from data_generation.choice_kpi_generator import generate_random_choice_kpi
+from data_generation.journey_step_generator import generate_journey_steps
+from data_generation.button_click_generator import generate_button_clicks
+from data_generation.journey_config import CAR_MODELS, JOURNEYS, STEPS
 
 def generate_kpi_data(num_records):
-    """Generates random KPI data.
+    """Generates random KPI data."""
 
-    Args:
-        num_records (int): Number of records to generate.
+    if num_records < 1:
+        raise ValueError("Number of records must be positive.")
 
-    Returns:
-        dict: Dictionary containing KPI data.
-    """
     return {
-        "Total Visits": [random.randint(800, 1500) for _ in range(num_records)],
-        "Unique Visitors": [random.randint(700, 1200) for _ in range(num_records)],
-        "Avg Session Duration": [round(random.uniform(3, 10), 2) for _ in range(num_records)],
-        "Bounce Rate": [round(random.uniform(20, 70), 2) for _ in range(num_records)],
-        "Journeys Per Session": [random.randint(1, 5) for _ in range(num_records)],
-        "Avg Time on Journey": [round(random.uniform(1, 5), 2) for _ in range(num_records)],
-        "Most Visited Journey": [random.choice(["Car Configurator", "Dealer Search", "Inventory Check"]) for _ in range(num_records)],
-        "Conversion Rate": [round(random.uniform(1, 10), 2) for _ in range(num_records)],
-        "Lead Conversion Rate": [round(random.uniform(0.5, 5), 2) for _ in range(num_records)],
-        "Document Downloads": [random.randint(50, 200) for _ in range(num_records)],
-        "Purchases": [random.randint(5, 30) for _ in range(num_records)],
-        "Feedback Score": [round(random.uniform(3, 5), 1) for _ in range(num_records)],
-        "Search Query Frequency": [random.choice(["new car models", "car pricing", "dealership locations"]) for _ in range(num_records)],
-        "Search Result CTR": [round(random.uniform(20, 50), 2) for _ in range(num_records)],
-        "Social Shares": [random.randint(40, 100) for _ in range(num_records)],
-        "Page Load Time": [round(random.uniform(1, 4), 2) for _ in range(num_records)],
-        "Error Rates": [round(random.uniform(0.01, 0.1), 2) for _ in range(num_records)],
-        "User Demographics": [random.choice(["25-34, Male", "35-44, Female", "18-24, Female"]) for _ in range(num_records)],
-        "Behavioral Segment": [random.choice(["Returning Visitor", "New Visitor", "Frequent Buyer"]) for _ in range(num_records)]
+        "Total Visits": generate_numeric_kpi(800, 1500, num_records),
+        "Unique Visitors": generate_numeric_kpi(700, 1200, num_records),
+        "Avg Session Duration": generate_numeric_kpi(3, 10, num_records, 2),
+        "Bounce Rate": generate_numeric_kpi(20, 70, num_records, 2),
+        "Journeys Per Session": generate_numeric_kpi(1, 5, num_records),
+        "Avg Time on Journey": generate_numeric_kpi(1, 5, num_records, 2),
+        "Most Visited Journey": generate_random_choice_kpi(JOURNEYS, num_records),
+        "Journey Steps": generate_journey_steps(JOURNEYS, STEPS, num_records),
+        "Time on Step": generate_numeric_kpi(1, 5, num_records, 2),
+        "TDA Clicks": generate_button_clicks("TDA", CAR_MODELS, num_records),
+        "RFO Clicks": generate_button_clicks("RFO", CAR_MODELS, num_records),
+        "Conversion Rate": generate_numeric_kpi(1, 10, num_records, 2),
+        "Lead Conversion Rate": generate_numeric_kpi(0.5, 5, num_records, 2),
+        "Document Downloads": generate_numeric_kpi(50, 200, num_records),
+        "Purchases": generate_numeric_kpi(5, 30, num_records),
+        "Feedback Score": generate_numeric_kpi(3, 5, num_records, 1),
+        "Search Query Frequency": generate_random_choice_kpi(["new car models", "car pricing", "dealership locations"], num_records),
+        "Search Result CTR": generate_numeric_kpi(20, 50, num_records, 2),
+        "Social Shares": generate_numeric_kpi(40, 100, num_records),
+        "Page Load Time": generate_numeric_kpi(1, 4, num_records, 2),
+        "Error Rates": generate_numeric_kpi(0.01, 0.1, num_records, 2),
+        "User Demographics": generate_random_choice_kpi(["25-34, Male", "35-44, Female", "18-24, Female"], num_records),
+        "Behavioral Segment": generate_random_choice_kpi(["Returning Visitor", "New Visitor", "Frequent Buyer"], num_records)
     }
